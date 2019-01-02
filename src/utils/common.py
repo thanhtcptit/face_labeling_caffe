@@ -37,7 +37,7 @@ def save(path, data):
 
 def softmax(eta):
     exp_eta = np.exp(eta)
-    return exp_eta / np.sum(exp_eta)
+    return exp_eta / np.tile(np.sum(exp_eta, 0), [exp_eta.shape[0], 1])
 
 
 def logistic(z):
