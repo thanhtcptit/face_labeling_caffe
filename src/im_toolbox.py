@@ -275,21 +275,6 @@ def cpt2form(base, proj):
     """
     uv = np.squeeze(base)
     xy = np.squeeze(proj)
-
     trans, trans_inv = get_similarity_transform(uv, xy)
+
     return trans, trans_inv
-
-    # uv_aug = np.hstack((
-    #     uv, np.ones((uv.shape[0], 1))
-    # ))
-    # xy_m = np.dot(uv_aug, trans)
-    # xy_m = tformfwd(trans, uv)
-
-    # xy_aug = np.hstack((
-    #     xy, np.ones((xy.shape[0], 1))
-    # ))
-    # uv_m = np.dot(xy_aug, trans_inv)
-    # uv_m = tformfwd(trans_inv, xy)
-    # uv_m = tforminv(trans, xy)
-
-    # return trans, uv_m
