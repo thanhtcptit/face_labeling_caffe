@@ -75,5 +75,5 @@ target/
 # Jupyter NB Checkpoints
 .ipynb_checkpoints/
 
-results/
+results/*
 !.gitkeep

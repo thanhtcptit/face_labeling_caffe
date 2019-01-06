@@ -1,0 +1,6 @@
+scipy=0.17.0
+scikit-image
+numpy
+matplotlib
+Pillow
+pandas

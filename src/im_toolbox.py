@@ -1,5 +1,6 @@
 import numpy as np
 
+from skimage import transform as trans
 from numpy.linalg import inv, norm, lstsq
 from numpy.linalg import matrix_rank as rank
 
@@ -184,112 +185,15 @@ def get_similarity_transform(src_pts, dst_pts, reflective=True):
     return trans, trans_inv
 
 
-def cvt_tform_mat_for_cv2(trans):
-    """
-        Function:
-        ----------
-            Convert Transform Matrix 'trans' into 'cv2_trans' which could be
-            directly used by cv2.warpAffine()
-        Parameters:
-        ----------
-            - trans: 3x3 np.array
-                transform matrix from uv to xy
-        Returns:
-        ----------
-            - cv2_trans: 2x3 np.array
-                transform matrix from src_pts to dst_pts, could be directly 
-                used for cv2.warpAffine()
-    """
-    cv2_trans = trans[:, 0:2].T
-
-    return cv2_trans
-
-
-def get_similarity_transform_for_cv2(src_pts, dst_pts, reflective=True):
-    """
-        Function:
-        ----------
-            Find Similarity Transform Matrix 'cv2_trans' which could be
-            directly used by cv2.warpAffine()
-        Parameters:
-        ----------
-            - src_pts: Kx2 np.array
-                source points, each row is a pair of coordinates (x, y)
-            - dst_pts: Kx2 np.array
-                destination points, each row is a pair of transformed
-                coordinates (x, y)
-            reflective: True or False
-                if True:
-                    use reflective similarity transform
-                else:
-                    use non-reflective similarity transform
-        Returns:
-        ----------
-            - cv2_trans: 2x3 np.array
-                transform matrix from src_pts to dst_pts, could be directly
-                used for cv2.warpAffine()
-    """
-    trans, trans_inv = get_similarity_transform(src_pts, dst_pts, reflective)
-    cv2_trans = cvt_tform_mat_for_cv2(trans)
-
-    return cv2_trans
-
-
-def cpt2form(base, proj):
-    """
-        u = [0, 6, -2]
-        v = [0, 3, 5]
-        x = [-1, 0, 4]
-        y = [-1, -10, 4]
-        # In Matlab, run:
-        #
-        #   uv = [u'; v'];
-        #   xy = [x'; y'];
-        #   tform_sim=cp2tform(uv,xy,'similarity');
-        #
-        #   trans = tform_sim.tdata.T
-        #   ans =
-        #       -0.0764   -1.6190         0
-        #        1.6190   -0.0764         0
-        #       -3.2156    0.0290    1.0000
-        #   trans_inv = tform_sim.tdata.Tinv
-        #    ans =
-        #
-        #       -0.0291    0.6163         0
-        #       -0.6163   -0.0291         0
-        #       -0.0756    1.9826    1.0000
-        #    xy_m=tformfwd(tform_sim, u,v)
-        #
-        #    xy_m =
-        #
-        #       -3.2156    0.0290
-        #        1.1833   -9.9143
-        #        5.0323    2.8853
-        #    uv_m=tforminv(tform_sim, x,y)
-        #
-        #    uv_m =
-        #
-        #        0.5698    1.3953
-        #        6.0872    2.2733
-        #       -2.6570    4.3314
-    """
+def cp2tform_v1(base, proj):
     uv = np.squeeze(base)
     xy = np.squeeze(proj)
-
     trans, trans_inv = get_similarity_transform(uv, xy)
+
     return trans, trans_inv
 
-    # uv_aug = np.hstack((
-    #     uv, np.ones((uv.shape[0], 1))
-    # ))
-    # xy_m = np.dot(uv_aug, trans)
-    # xy_m = tformfwd(trans, uv)
 
-    # xy_aug = np.hstack((
-    #     xy, np.ones((xy.shape[0], 1))
-    # ))
-    # uv_m = np.dot(xy_aug, trans_inv)
-    # uv_m = tformfwd(trans_inv, xy)
-    # uv_m = tforminv(trans, xy)
-
-    # return trans, uv_m
+def cp2tform_v2(base, proj):
+    tform = trans.SimilarityTransform()
+    tform.estimate(base, proj)
+    return tform.params.T, inv(tform.params.T)

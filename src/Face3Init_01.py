@@ -26,13 +26,12 @@ def Face3Init_01(model_def_file, resume_file):
         # print(net.params[layer_name][0].data.shape)
         net.params[layer_name][0].data[:] = np.transpose(layer_weight)
 
-    # solver['device_id'] = 0
-    # if solver['solver_mode'] == 'GPU':
-    #     caffe.set_mode_gpu()
-    #     caffe.set_device(solver['device_id'])
-    # else:
-    #     caffe.set_mode_cpu()
+    solver['device_id'] = 0
+    if solver['solver_mode'] == 'GPU':
+        caffe.set_mode_gpu()
+        caffe.set_device(solver['device_id'])
+    else:
+        caffe.set_mode_cpu()
     # MATLAB: caffe('get_device');
-    caffe.set_mode_cpu()
 
-    return solver
+    return solver, net
