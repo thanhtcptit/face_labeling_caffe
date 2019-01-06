@@ -1,7 +1,7 @@
 import os
 import numpy as np
 
-from src.utils.common import load, str2type
+from utils.common import load, str2type
 
 
 def T1_SolverParser(solver_def_file, resume_file):

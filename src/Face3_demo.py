@@ -6,8 +6,8 @@ from skimage.io import imread
 
 from Face3Init_01 import Face3Init_01
 from Face3Classes import Face3Classes
-from src.utils.common import load, save
-from src.utils.path import Path
+from utils.common import load, save
+from utils.path import Path
 
 
 solver = 'lfw03_solver_exemplar'

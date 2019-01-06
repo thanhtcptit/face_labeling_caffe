@@ -1,6 +1,6 @@
 import numpy as np
 
-from src.utils.common import logistic, softmax
+from utils.common import logistic, softmax
 
 
 def T3_ImageRemap16(active_fc):

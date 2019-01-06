@@ -6,8 +6,8 @@ from skimage.transform import resize
 
 from processlm_lfw import processIm_lfw
 from T3_ImageRemap16 import T3_ImageRemap16
-from src.utils.common import save
-from src.utils.path import Path
+from utils.common import save
+from utils.path import Path
 
 
 def Face3Classes(img, shape, parm):

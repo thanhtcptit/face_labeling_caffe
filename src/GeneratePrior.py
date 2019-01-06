@@ -4,8 +4,8 @@ import numpy as np
 
 from T1_GeneratingTrom import T1_GeneratingTrom
 from LabelDistribution import LabelDistribution
-from src.utils.common import text_read, load
-from src.utils.path import Path
+from utils.common import text_read, load
+from utils.path import Path
 
 
 def GeneratePrior(shape):
