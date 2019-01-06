@@ -30,13 +30,13 @@ parm['mini_batch'] = 1
 parm['imsize'] = 250
 parm['amp'] = 100
 parm['mean'] = LFW_EP_MEAN
-parm['result_path'] = Path.RESULT_DIR
+parm['result_path'] = os.path.join(Path.DEBUG_DIR, 'results')
 if not os.path.exists(parm['result_path']):
     os.makedirs(parm['result_path'])
 
-img = imread(os.path.join(Path.RESOURCES_DIR, 'img2.png'))
+img = imread(os.path.join(Path.DEBUG_DIR, 'data/img2.png'))
 shape = []
-with open(os.path.join(Path.RESOURCES_DIR, 'shape2.txt')) as f:
+with open(os.path.join(Path.DEBUG_DIR, 'data/img2_lm.txt')) as f:
     for line in f:
         x, y = line.split(' ')
         shape.append([int(x), int(y)])

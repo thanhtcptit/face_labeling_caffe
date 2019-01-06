@@ -43,15 +43,15 @@ def save_labelled_face(input_img, patch_segment):
     overlay = overlay.convert("RGBA")
     new_img = Image.blend(background, overlay, .9)
     new_img = new_img.convert('RGB')
-    new_img.save(os.path.join(Path.RESOURCES_DIR, 'new.png'), 'PNG')
+    new_img.save(os.path.join(Path.DEBUG_DIR, 'data/new.png'), 'PNG')
 
 
 if __name__ == '__main__':
-    input_img = skio.imread(os.path.join(Path.RESOURCES_DIR, 'img2.png'))
-    landmark = pd.read_csv(os.path.join(Path.RESOURCES_DIR, 'shape2.txt'),
+    input_img = skio.imread(os.path.join(Path.DEBUG_DIR, 'data/img2.png'))
+    landmark = pd.read_csv(os.path.join(Path.DEBUG_DIR, 'data/img2_lm.txt'),
                            header=None, sep=" ").values
     # viz_landmarks(input_img, landmark, columns=1)
-    lab = sio.loadmat(os.path.join(Path.RESOURCES_DIR, 'lab.mat'))
+    lab = sio.loadmat(os.path.join(Path.DEBUG_DIR, 'results/lab.mat'))
     edge_segment, patch_segment = lab['lab'][0][0]
     # viz_labelled_face(input_img, landmark, patch_segment)
     save_labelled_face(input_img, patch_segment)

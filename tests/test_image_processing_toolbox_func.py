@@ -31,20 +31,6 @@ class TestCustomFunc(unittest.TestCase):
         #       -0.0291    0.6163         0
         #       -0.6163   -0.0291         0
         #       -0.0756    1.9826    1.0000
-        #    xy_m=tformfwd(tform_sim, u,v)
-        #
-        #    xy_m =
-        #
-        #       -3.2156    0.0290
-        #        1.1833   -9.9143
-        #        5.0323    2.8853
-        #    uv_m=tforminv(tform_sim, x,y)
-        #
-        #    uv_m =
-        #
-        #        0.5698    1.3953
-        #        6.0872    2.2733
-        #       -2.6570    4.3314
     """
         res = np.array([
             [-0.0764, -1.6190, 0],
@@ -66,6 +52,23 @@ class TestCustomFunc(unittest.TestCase):
         self.assertEqual(1, 1)
 
     def test_tformfwd(self):
+        """
+        # In Matlab, run:
+        #    xy_m=tformfwd(tform_sim, u,v)
+        #
+        #    xy_m =
+        #
+        #       -3.2156    0.0290
+        #        1.1833   -9.9143
+        #        5.0323    2.8853
+        #    uv_m=tforminv(tform_sim, x,y)
+        #
+        #    uv_m =
+        #
+        #        0.5698    1.3953
+        #        6.0872    2.2733
+        #       -2.6570    4.3314
+        """
         res = np.array([
             [-3.2156, 0.0290],
             [1.1833, -9.9143],
