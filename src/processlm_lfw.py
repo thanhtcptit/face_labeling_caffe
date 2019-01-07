@@ -13,7 +13,6 @@ def processIm_lfw(img, parm, shape):
         inp[:, :, k, :] -= parm['mean'][k]
 
     # % permute from RGB to BGR
-    # input = input(:,:,[3 2 1 4:end],:);
-
+    inp = inp[:, :, [2, 1, 0, 3, 4, 5], :]
     inp = np.transpose(inp, [1, 0, 2, 3])
     return inp, ex

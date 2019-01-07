@@ -77,3 +77,4 @@ target/
 
 results/*
 !.gitkeep
+*.mat

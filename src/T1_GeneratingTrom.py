@@ -1,6 +1,6 @@
 import numpy as np
 
-from im_toolbox import cpt2form, tformfwd
+from im_toolbox import cp2tform_v1, cp2tform_v2, tformfwd
 
 
 def T1_GeneratingTrom(im_shape, mean_shape):
@@ -22,7 +22,9 @@ def T1_GeneratingTrom(im_shape, mean_shape):
         [X, Y] = tformfwd(TFORM, im_shape(1:5), im_shape(6:10));
         IM_shape_new = [X',Y']';
     """
-    trans, _ = cpt2form(base_points, input_points)
+    base_points = np.squeeze(base_points)
+    input_points = np.squeeze(input_points)
+    trans, _ = cp2tform_v2(input_points, base_points)
     im_shape_new = tformfwd(trans, im_shape)
     im_shape_new = np.reshape(im_shape_new.T, [10, 1])
     return im_shape_new, trans

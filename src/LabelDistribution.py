@@ -8,6 +8,5 @@ def LabelDistribution(trans_label):
         for n in range(c):
             for i in range(3):
                 dis_label[m, n, i] = \
-                    sum(trans_label[:, m, n] == i + 1) / kn
-
+                    float(sum(trans_label[:, m, n] == i + 1)) / kn
     return dis_label

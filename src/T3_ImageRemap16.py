@@ -14,6 +14,7 @@ def T3_ImageRemap16(active_fc):
         active_edge[:, :, m] = logistic(active_fc[:, :, -1, m])
         active = np.reshape(active_fc[:, :, :, m], [r * c, ch]).T
         active_patch[:, :, m] = softmax(active[:ch - 1, :])
+
         edge = active_edge[:, :, m].T
         patch = np.reshape(active_patch[:, :, m].T, [r, c, ch - 1])
         patch = np.transpose(patch, [1, 0, 2])
@@ -23,7 +24,9 @@ def T3_ImageRemap16(active_fc):
                            list(range(iy + 1, 4 * c + 1, 4)))
         x = np.reshape(x, [-1])
         y = np.reshape(y, [-1])
-        array_idx = np.ravel_multi_index([x, y], (4 * r + 1, 4 * c + 1))
+
+        array_idx = np.ravel_multi_index(
+            [y, x], (4 * r + 1, 4 * c + 1))
         big_edge = np.reshape(big_edge, [-1])
         edge = np.reshape(edge, [-1])
         big_edge[array_idx] = edge
@@ -39,4 +42,5 @@ def T3_ImageRemap16(active_fc):
 
     big_edge = big_edge[:-1, :-1]
     big_patch = big_patch[:-1, :-1, :]
+
     return big_patch, big_edge

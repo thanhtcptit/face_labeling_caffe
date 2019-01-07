@@ -19,7 +19,7 @@ def viz_landmarks(input_img, shapes, columns, rows=1, figsize=(8, 8)):
 def viz_labelled_face(input_img, landmark, patch_segment,
                       columns=2, rows=1, figsize=(12, 12)):
     fig = plt.figure(figsize=figsize)
-    for i in range(1, columns*rows + 1):
+    for i in range(1, columns * rows + 1):
         fig.add_subplot(rows, columns, i)
         plt.imshow(input_img)
         if i == 1:
