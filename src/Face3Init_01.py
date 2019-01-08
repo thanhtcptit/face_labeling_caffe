@@ -24,11 +24,11 @@ def Face3Init_01(model_def_file, resume_file):
     for i in range(len(layers)):
         layer_name = layers[i]['layer_names'][0][0]
         layer_weight = layers[i]['weights'][0][0][0]
-        layer_weight = layers[i]['weights'][0][1][0]
+        layer_bias = layers[i]['weights'][0][1][0]
         # print(layer_name)
         # print(layer_weight.shape)
         # print(net.params[layer_name][0].data.shape)
         net.params[layer_name][0].data[:] = np.transpose(layer_weight)
-        net.params[layer_name][1].data[:] = np.squeeze()
+        net.params[layer_name][1].data[:] = np.squeeze(layer_bias)
 
     return solver, net
