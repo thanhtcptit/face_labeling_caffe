@@ -1,5 +1,5 @@
 import os
-# os.environ['GLOG_minloglevel'] = '2'
+os.environ['GLOG_minloglevel'] = '2'
 import caffe
 import numpy as np
 
@@ -46,11 +46,9 @@ def main():
 
     lab = Face3Classes(img, shape, parm)
     save(os.path.join(parm['result_path'], 'lab.mat'), {'lab': lab})
-    print('Done.')
+    print('Result save to {}'.format(
+        os.path.abspath(os.path.join(parm['result_path'], 'lab.mat'))))
 
 
 if __name__ == '__main__':
-    try:
-        main()
-    except Exception as e:
-        print(e)
+    main()

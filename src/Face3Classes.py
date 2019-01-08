@@ -19,7 +19,10 @@ def Face3Classes(img, shape, parm):
         # Code for pycaffe interface reprocedure:
         # MATLAB: active = caffe('forward_test', {single(b_img)});
         b_img = np.transpose(b_img, [2, 0, 1])
-        out = net.forward(**{net.inputs[0]: np.asarray([b_img])})
+        # out = net.forward(**{net.inputs[0]: np.asarray([b_img])})
+        # out = np.transpose(np.squeeze(out['conv10']), [1, 2, 0])
+        net.blobs['data'].data[...] = b_img
+        out = net.forward()
         out = np.transpose(np.squeeze(out['conv10']), [1, 2, 0])
         # print(out[:, :, 0])
         # exit()

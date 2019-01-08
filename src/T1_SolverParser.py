@@ -43,7 +43,7 @@ def T1_SolverParser(solver_def_file, resume_file):
     for ind in range(lnum):
         if solver['model'][ind]['layer_names'][0][0] == 'fc' + str(ind + 1):
             solver['model'][ind]['layer_names'][0] = \
-                solver['model'][ind]['layer_names'][0].astype('<U6')
+                solver['model'][ind]['layer_names'][0].astype('<U8')
             solver['model'][ind]['layer_names'][0][0] = 'conv' + str(ind + 1)
             weights = solver['model'][ind]['weights'][0][0][0]
             s1, s2 = weights.shape
