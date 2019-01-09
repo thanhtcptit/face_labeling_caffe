@@ -16,11 +16,11 @@ def get_result_from_server():
         'ntq@192.168.1.200:' +
         '/home/ntq/thanhtc/hair_segmentation/debug/results/lab.mat',
         '/home/nero/py/nextsmarty/hair_segmentation/debug/results/'])
-    subprocess.call([
-        'scp',
-        'ntq@192.168.1.200:' +
-        '/home/ntq/thanhtc/hair_segmentation/debug/results/out2.mat',
-        '/home/nero/py/nextsmarty/hair_segmentation/debug/results/'])
+    # subprocess.call([
+    #     'scp',
+    #     'ntq@192.168.1.200:' +
+    #     '/home/ntq/thanhtc/hair_segmentation/debug/results/out2.mat',
+    #     '/home/nero/py/nextsmarty/hair_segmentation/debug/results/'])
 
 
 def add_overlay(background, overlay):
@@ -94,12 +94,13 @@ if __name__ == '__main__':
     landmark = pd.read_csv(os.path.join(Path.DEBUG_DIR, 'data/img2_lm.txt'),
                            header=None, sep=" ").values
     # viz_landmarks(input_img, landmark, columns=1)
-    lab_M = sio.loadmat(os.path.join(Path.DEBUG_DIR, 'results/lab_M.mat'))
+    lab_M = sio.loadmat(os.path.join(Path.DEBUG_DIR, 'results/old_lab.mat'))
     lab_P = sio.loadmat(os.path.join(Path.DEBUG_DIR, 'results/lab.mat'))
     edge_segment_M, patch_segment_M = lab_M['lab'][0][0]
     edge_segment_P, patch_segment_P = lab_P['lab'][0][0]
     viz_labelled_face(input_img, [patch_segment_M, patch_segment_P], axis=1)
+    # viz_labelled_face(input_img, [edge_segment_M, edge_segment_P], axis=None)
     # save_labelled_face(input_img, patch_segment_P, edge_segment_P)
     # viz_net_output([
-    #    os.path.join(Path.DEBUG_DIR, 'results/out2_M.mat'),
+    #    os.path.join(Path.DEBUG_DIR, 'results/old_out2.mat'),
     #    os.path.join(Path.DEBUG_DIR, 'results/out2.mat')])

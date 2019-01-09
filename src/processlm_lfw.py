@@ -10,7 +10,9 @@ def processIm_lfw(img, parm, shape):
     inp = T6_EPsharePadding(inp, parm)
 
     for k in range(6):
-        inp[:, :, k, :] -= parm['mean'][k]
+        inp[:, :, k, :] = \
+            inp[:, :, k, :].astype(np.float32) - \
+            parm['mean'][k].astype(np.float32)
 
     # % permute from RGB to BGR
     inp = inp[:, :, [2, 1, 0, 3, 4, 5], :]

@@ -28,6 +28,21 @@ def GeneratePrior(shape):
     coef_dist = np.sqrt(np.dot(w, np.square(tile_coef - all_coef)))
     # rank of most similar poses in training set
     index = np.argsort(coef_dist)
+    index = [201, 355, 1, 101, 320, 161, 264, 410, 390, 252]
+    lab_names = [
+        'Jackie_Chan_0012.mat',
+        'Nathalia_Gillot_0001.mat',
+        'Aaron_Peirsol_0001.mat',
+        'Dan_Morales_0001.mat',
+        'Mary_Catherine_Correll_0001.mat',
+        'Gian_Marco_0002.mat',
+        'Juliette_Lewis_0001.mat',
+        'Roberto_Carlos_0001.mat',
+        'Queen_Elizabeth_II_0011.mat',
+        'John_Rigas_0001.mat'
+    ]
+    # print(index[:10])
+    # exit()
     ex = []
     for n in range(kn):
         m = index[n]
@@ -37,8 +52,8 @@ def GeneratePrior(shape):
             num_img_short_ss + '.jpg')]
         img_name_short_ss = img_name_ss[:-4]
         lab_name_ss = img_name_short_ss + '.mat'
+        lab_name_ss = lab_names[n]
         label_ss = load(os.path.join(folder_valid, lab_name_ss))
         ex.append(label_ss['label'])
-
     ex = LabelDistribution(np.array(ex))
     return ex
