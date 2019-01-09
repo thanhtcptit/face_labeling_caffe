@@ -78,4 +78,4 @@ target/
 results/*
 !.gitkeep
 *.mat
-!debug/*/*.mat
+!/debug/results/*.mat
