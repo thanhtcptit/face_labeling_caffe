@@ -5,6 +5,7 @@ class Path:
     PROJECT_ROOT = os.path.join(
         os.path.dirname(__file__), os.pardir, os.pardir)
     DEBUG_DIR = os.path.join(PROJECT_ROOT, 'debug')
+    TEST_DIR = os.path.join(PROJECT_ROOT, 'tests')
     DATA_DIR = os.path.join(PROJECT_ROOT, 'data')
     LFW_DATA_DIR = os.path.join(DATA_DIR, 'LFW')
     RESOURCES_DIR = os.path.join(PROJECT_ROOT, 'resources')
