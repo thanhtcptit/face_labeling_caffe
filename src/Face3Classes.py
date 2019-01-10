@@ -16,7 +16,6 @@ import scipy.io as sio
 def Face3Classes(img, shape, parm):
     net = parm['net']
     inp, ex = processIm_lfw(img, parm, shape)
-
     active_fc = []
     for m in range(16):
         # for l in range(1, 7):
@@ -32,21 +31,24 @@ def Face3Classes(img, shape, parm):
         # Code for pycaffe interface reprocedure:
         # MATLAB: active = caffe('forward_test', {single(b_img)});
         b_img = inp[:, :, :, m].astype(np.float32)
-        b_img = np.transpose(b_img, [2, 0, 1])
-        out = net.forward(data=np.asarray([b_img]))
-        out = np.transpose(np.squeeze(out['conv10']), [1, 2, 0])
-        # print(out[:, :, 0])
-        # exit()
-        active_fc.append(out)
+        b_img = np.transpose(b_img)
+        active = net.forward(data=np.asarray([b_img]))
+        active = np.transpose(np.squeeze(active['conv10']))
+        # for k, v in net.blobs.items():
+        #     print(k)
+        #     num = 1
+        #     for d in v.data.shape:
+        #         num *= d
+        #     print(np.sum(np.abs(v.data)) / num)
+
+        active_fc.append(active)
 
     active_fc = np.transpose(np.array(active_fc), [1, 2, 3, 0])
-    # print(active_fc[:, :, 0, 0])
-    # exit()
+
     save(os.path.join(
-        Path.DEBUG_DIR, 'results/out2.mat'),
+        Path.DEBUG_DIR, 'results/py_out2.mat'),
         {'input': inp, 'active_fc': active_fc})
-    # active_fc = sio.loadmat(os.path.join(
-    #     Path.DEBUG_DIR,'results/out2.mat'))['active_fc']
+
     lab = {}
     big_patch, big_edge = T3_ImageRemap16(active_fc)
     big_edge = resize(big_edge, (parm['imsize'] + 2, parm['imsize'] + 2),

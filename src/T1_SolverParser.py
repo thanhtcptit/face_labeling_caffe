@@ -49,7 +49,7 @@ def T1_SolverParser(solver_def_file, resume_file):
             s1, s2 = weights.shape
             _, _, _, ch = solver['model'][ind - 1]['weights'][0][0][0].shape
             filter_size = int(np.sqrt(s1 / ch))
-            weights = np.reshape(weights, [filter_size, filter_size, ch, s2])
+            weights = np.reshape(weights, [filter_size, filter_size, ch, s2], order='F')
             solver['model'][ind]['weights'][0][0][0] = weights
 
     if solver['solver_mode'] == 'GPU' and 'device_id' not in solver:

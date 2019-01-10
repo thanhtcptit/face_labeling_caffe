@@ -21,14 +21,17 @@ def Face3Init_01(model_def_file, resume_file):
     net = caffe.Net(solver['net'], caffe.TEST)
     layers = solver['model']
 
+    # for k in net.blobs.keys():
+    #     print(k)
+
     for i in range(len(layers)):
         layer_name = layers[i]['layer_names'][0][0]
-        layer_weight = layers[i]['weights'][0][0][0]
-        layer_bias = layers[i]['weights'][0][1][0]
+        layer_weight = layers[i]['weights'][0][0][0].astype(np.float32)
+        layer_bias = layers[i]['weights'][0][1][0].astype(np.float32)
 
         net.params[layer_name][0].data[...] = \
-            np.transpose(layer_weight).astype(np.float32)
+            np.transpose(layer_weight)
         net.params[layer_name][1].data[...] = \
-            np.squeeze(layer_bias).astype(np.float32)
+            np.squeeze(layer_bias)
 
     return solver, net

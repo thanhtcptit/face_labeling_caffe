@@ -45,9 +45,9 @@ def main():
     shape = np.array(shape)
 
     lab = Face3Classes(img, shape, parm)
-    save(os.path.join(parm['result_path'], 'lab.mat'), {'lab': lab})
+    save(os.path.join(parm['result_path'], 'py_lab.mat'), {'lab': lab})
     print('Result save to {}'.format(
-        os.path.abspath(os.path.join(parm['result_path'], 'lab.mat'))))
+        os.path.abspath(os.path.join(parm['result_path'], 'py_lab.mat'))))
 
 
 if __name__ == '__main__':

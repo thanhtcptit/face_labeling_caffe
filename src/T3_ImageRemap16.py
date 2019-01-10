@@ -12,11 +12,11 @@ def T3_ImageRemap16(active_fc):
 
     for m in range(ml):
         active_edge[:, :, m] = logistic(active_fc[:, :, -1, m])
-        active = np.reshape(active_fc[:, :, :, m], [r * c, ch]).T
+        active = np.reshape(active_fc[:, :, :, m], [r * c, ch], order='F').T
         active_patch[:, :, m] = softmax(active[:ch - 1, :])
 
         edge = active_edge[:, :, m].T
-        patch = np.reshape(active_patch[:, :, m].T, [r, c, ch - 1])
+        patch = np.reshape(active_patch[:, :, m].T, [r, c, ch - 1], order='F')
         patch = np.transpose(patch, [1, 0, 2])
 
         iy, ix = np.unravel_index(m, [4, 4])
