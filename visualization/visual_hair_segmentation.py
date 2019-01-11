@@ -16,11 +16,11 @@ def get_result_from_server():
         'ntq@192.168.1.200:' +
         '/home/ntq/thanhtc/hair_segmentation/debug/results/py_lab.mat',
         '/home/nero/py/nextsmarty/hair_segmentation/debug/results/'])
-    # subprocess.call([
-    #     'scp',
-    #     'ntq@192.168.1.200:' +
-    #     '/home/ntq/thanhtc/hair_segmentation/debug/results/py_out2.mat',
-    #     '/home/nero/py/nextsmarty/hair_segmentation/debug/results/'])
+    subprocess.call([
+        'scp',
+        'ntq@192.168.1.200:' +
+        '/home/ntq/thanhtc/hair_segmentation/debug/results/py_out2.mat',
+        '/home/nero/py/nextsmarty/hair_segmentation/debug/results/'])
 
 
 def add_overlay(background, overlay):
@@ -50,6 +50,7 @@ def viz_labelled_face(input_img, patch_segments, axis=0,
 
         hair_patch = hair_patch * 255
         hair_patch.astype('uint8')
+        print(hair_patch[100:110, 100:110])
         hair_patchs.append(hair_patch)
 
     for i in range(columns * rows):
@@ -57,7 +58,7 @@ def viz_labelled_face(input_img, patch_segments, axis=0,
         background = Image.fromarray(input_img)
         overlay = Image.fromarray(hair_patchs[i])
         new_img = add_overlay(background, overlay)
-        plt.imshow(new_img)
+        plt.imshow(overlay)
 
     plt.show()
 
