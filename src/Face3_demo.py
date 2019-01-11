@@ -1,4 +1,5 @@
 import os
+import sys
 os.environ['GLOG_minloglevel'] = '2'
 import caffe
 import numpy as np
@@ -36,18 +37,20 @@ def main():
     if not os.path.exists(parm['result_path']):
         os.makedirs(parm['result_path'])
 
-    img = imread(os.path.join(Path.DEBUG_DIR, 'data/img2.png'))
+    img = imread(os.path.join(Path.DEBUG_DIR, 'data', sys.argv[1]))
+    img_name = os.path.splitext(sys.argv[1])[0]
     shape = []
-    with open(os.path.join(Path.DEBUG_DIR, 'data/img2_lm.txt')) as f:
+    with open(os.path.join(Path.DEBUG_DIR, 'data', sys.argv[2])) as f:
         for line in f:
             x, y = line.split(' ')
             shape.append([int(x), int(y)])
     shape = np.array(shape)
 
     lab = Face3Classes(img, shape, parm)
-    save(os.path.join(parm['result_path'], 'py_lab.mat'), {'lab': lab})
-    print('Result save to {}'.format(
-        os.path.abspath(os.path.join(parm['result_path'], 'py_lab.mat'))))
+    save(os.path.join(
+        parm['result_path'], '{}_lab.mat'.format(img_name)), {'lab': lab})
+    print('Result save to {}'.format(os.path.abspath(os.path.join(
+        parm['result_path'], '{}_lab.mat'.format(img_name)))))
 
 
 if __name__ == '__main__':
